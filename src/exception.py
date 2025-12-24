@@ -1,6 +1,6 @@
 from typing import Tuple, Optional
 from types import TracebackType
-import logger
+from src.logger import logging
 
 def error_message_detail(error, error_detail: Tuple[Optional[type], Optional[Exception], Optional[TracebackType]]):
     _, _, exc_tb = error_detail
