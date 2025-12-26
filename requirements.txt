@@ -6,4 +6,5 @@ setuptools
 ucimlrepo
 matplotlib
 seaborn
--e .
+dill
+#-e .
