@@ -7,4 +7,6 @@ ucimlrepo
 matplotlib
 seaborn
 dill
+lightgbm
+xgboost
 #-e .
