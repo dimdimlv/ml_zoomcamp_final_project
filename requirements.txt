@@ -9,4 +9,5 @@ seaborn
 dill
 lightgbm
 xgboost
+pyyaml
 #-e .
