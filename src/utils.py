@@ -35,6 +35,32 @@ def save_object(file_path: str, obj: object) -> None:
 		logging.error(f"Error occurred while saving object at {file_path}: {e}")
 		raise CustomException(e, sys)
 
+def load_object(file_path: str) -> object:
+	"""Loads a Python object from a file using pickle.
+
+	Args:
+		file_path (str): The path to the file containing the saved object.
+
+	Returns:
+		object: The loaded Python object.
+
+	Raises:
+		CustomException: If there is an error during the loading process.
+	"""
+	try:
+		if not os.path.exists(file_path):
+			raise FileNotFoundError(f"File not found at {file_path}")
+		
+		with open(file_path, 'rb') as file_obj:
+			obj = dill.load(file_obj)
+			
+		logging.info(f"Object loaded successfully from {file_path}")
+		return obj
+		
+	except Exception as e:
+		logging.error(f"Error occurred while loading object from {file_path}: {e}")
+		raise CustomException(e, sys)
+
 def evaluate_models(X_train, y_train, X_test, y_test, models):
 	"""Evaluates multiple models using stratified CV and test holdout.
 

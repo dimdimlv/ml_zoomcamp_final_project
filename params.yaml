@@ -1,38 +1,38 @@
 logistic_regression:
-  max_iter: [500]
-  C: [1]
+  max_iter: [400, 800]
+  C: [0.5, 1.0, 2.0]
   random_state: 42
 
 decision_tree:
-  max_depth: [10]
-  min_samples_split: [5]
+  max_depth: [6, 10, 14]
+  min_samples_split: [2, 5]
   random_state: 42
 
 random_forest:
-  n_estimators: [100]
-  max_depth: [15]
+  n_estimators: [80, 140]
+  max_depth: [10, 16]
   random_state: 42
 
 gradient_boosting:
-  n_estimators: [100]
-  learning_rate: [0.1]
-  max_depth: [3]
+  n_estimators: [80, 140]
+  learning_rate: [0.05, 0.1]
+  max_depth: [3, 4]
   random_state: 42
 
 xgboost:
-  n_estimators: [100]
-  learning_rate: [0.1]
-  max_depth: [3]
+  n_estimators: [80, 140]
+  learning_rate: [0.05, 0.1]
+  max_depth: [3, 4]
   random_state: 42
   tree_method: 'hist'
 
 lightgbm:
-  n_estimators: [100]
-  learning_rate: [0.1]
-  num_leaves: [31]
+  n_estimators: [80, 140]
+  learning_rate: [0.05, 0.1]
+  num_leaves: [25, 40]
   random_state: 42
 
-cv_splits: 2
+cv_splits: 3
 random_state: 42
 
 

@@ -10,4 +10,6 @@ dill
 lightgbm
 xgboost
 pyyaml
+flask
+requests
 #-e .

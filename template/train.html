@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Model</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #f5576c;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-back:hover {
+            background: #5a6268;
+        }
+        
+        .description {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #f5576c;
+        }
+        
+        .description p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+        
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        
+        .result.success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+        
+        .result.error {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+        
+        .accuracy {
+            font-size: 2em;
+            font-weight: bold;
+            color: #28a745;
+            margin-top: 10px;
+        }
+        
+        .steps {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .steps h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+        }
+        
+        .steps ol {
+            margin-left: 20px;
+        }
+        
+        .steps li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn-back">← Back to Home</a>
+        <h1>🎯 Train Model</h1>
+        
+        <div class="description">
+            <p><strong>Train the Obesity Prediction Model</strong></p>
+            <p>This process will:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Fetch the latest dataset from UCI repository</li>
+                <li>Preprocess and transform the data</li>
+                <li>Train multiple ML models</li>
+                <li>Select and save the best performing model</li>
+            </ul>
+        </div>
+        
+        <div class="steps">
+            <h3>📋 Training Steps:</h3>
+            <ol>
+                <li><strong>Data Ingestion:</strong> Download and split the dataset</li>
+                <li><strong>Data Transformation:</strong> Preprocess features and encode categories</li>
+                <li><strong>Model Training:</strong> Train and evaluate multiple models</li>
+                <li><strong>Model Selection:</strong> Save the best performing model</li>
+            </ol>
+        </div>
+        
+        <form action="/train" method="post">
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="use_tuning" name="use_tuning" value="true">
+                    <label for="use_tuning">Enable Hyperparameter Tuning (⚠️ This will take longer)</label>
+                </div>
+            </div>
+            
+            <div class="warning">
+                <strong>⚠️ Note:</strong> Training may take several minutes depending on your system and whether hyperparameter tuning is enabled.
+            </div>
+            
+            <button type="submit" class="btn-submit">🚀 Start Training</button>
+        </form>
+        
+        {% if results %}
+            {% if accuracy %}
+            <div class="result success">
+                <p>{{ results }}</p>
+                <div class="accuracy">{{ "%.2f"|format(accuracy * 100) }}%</div>
+            </div>
+            {% else %}
+            <div class="result error">
+                <p>{{ results }}</p>
+            </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
