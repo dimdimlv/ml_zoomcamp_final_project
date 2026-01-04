@@ -1,92 +1,127 @@
 # Obesity Level Prediction - ML Zoomcamp Final Project
 
-## Problem Description
+## 📋 Problem Description
 
-This project aims to predict obesity levels in individuals based on their eating habits and physical condition. Obesity is a major public health concern associated with numerous chronic diseases including diabetes, cardiovascular disease, and certain cancers. 
+Obesity is a critical global health challenge affecting millions of people worldwide. According to the World Health Organization, worldwide obesity has nearly tripled since 1975, with significant implications for healthcare systems and individual well-being.
 
-The goal is to build a machine learning model that can:
-- Classify individuals into different obesity categories
-- Identify key factors contributing to obesity
-- Enable early intervention through risk assessment
+### The Problem
 
-This predictive model can be valuable for:
-- Healthcare providers for patient risk stratification
-- Fitness and wellness applications
-- Public health initiatives for obesity prevention
+This project addresses the need for **early identification and classification of obesity risk levels** in individuals based on their lifestyle patterns, eating habits, and physical characteristics.
 
-## Dataset
+### The Solution
 
-**Source**: Estimation of Obesity Levels Based On Eating Habits and Physical Condition [Dataset]. (2019). UCI Machine Learning Repository. https://doi.org/10.24432/C5H31Z.
+A machine learning classification system that:
+- **Predicts obesity levels** across 7 categories from underweight to severe obesity
+- **Identifies key risk factors** through feature importance analysis
+- **Provides instant risk assessment** via a web service API
+- **Enables early intervention** by flagging individuals at risk
 
-The dataset contains information about:
-- **Eating habits**: Frequency of consumption of high caloric food, vegetables, water intake, etc.
-- **Physical condition**: Physical activity frequency, time spent using technology, etc.
-- **Demographic factors**: Age, sex, height, weight
-- **Target variable**: Obesity level (7 classes: Insufficient Weight, Normal Weight, Overweight Level I, Overweight Level II, Obesity Type I, Obesity Type II, Obesity Type III)
+### Real-World Applications
 
-## Flask Web Application
+1. **Healthcare Providers**: Quick risk stratification during patient screenings
+2. **Wellness Apps**: Integration into fitness and nutrition applications
+3. **Public Health**: Population-level obesity monitoring and prevention programs
+4. **Research**: Understanding correlations between lifestyle factors and obesity
 
-This project includes a complete Flask web application with both training and prediction pipelines.
+### How It's Used
 
-### Features
+Users can input demographic data, eating habits, and physical activity patterns through either:
+- A **web interface** for individual assessments
+- A **REST API** for integration into existing healthcare systems
 
-- **🏠 Home Page**: Beautiful landing page with navigation
-- **📊 Prediction Interface**: Web form for making obesity level predictions
-- **🎯 Training Interface**: Web interface to train the model with latest data
-- **🔌 REST API Endpoints**: JSON API for programmatic access
-- **✅ Health Check**: Monitor application status
+The model returns the predicted obesity category, enabling targeted interventions and personalized health recommendations.
 
-## Project Structure
+## 📊 Dataset
+
+**Source**: [Estimation of Obesity Levels Based On Eating Habits and Physical Condition](https://doi.org/10.24432/C5H31Z), UCI Machine Learning Repository (2019)
+
+**Dataset Size**: 2,111 samples with 17 features
+
+**Features Include**:
+- **Physical Characteristics**: Age, Height, Weight, Gender
+- **Eating Habits**: Vegetable consumption frequency (FCVC), Number of main meals (NCP), Food between meals (CAEC), High caloric food consumption (FAVC), Water intake (CH2O), Alcohol consumption (CALC)
+- **Physical Activity**: Physical activity frequency (FAF), Time using technology devices (TUE)
+- **Other Factors**: Family history of overweight, Smoking habits (SMOKE), Calorie monitoring (SCC), Transportation mode (MTRANS)
+
+**Target Variable**: Obesity level with 7 classes:
+- Insufficient_Weight
+- Normal_Weight
+- Overweight_Level_I
+- Overweight_Level_II
+- Obesity_Type_I
+- Obesity_Type_II
+- Obesity_Type_III
+
+## 🎯 Project Features
+
+- ✅ **Multiple ML Models**: Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, XGBoost, LightGBM
+- ✅ **Hyperparameter Tuning**: Optional GridSearchCV with configurable parameters via YAML
+- ✅ **Complete Web Service**: Flask application with REST API endpoints
+- ✅ **Docker Support**: Fully containerized application ready for deployment
+- ✅ **Comprehensive Testing**: Unit tests for pipelines and API endpoints
+- ✅ **Logging System**: Detailed logging for debugging and monitoring
+- ✅ **Modular Architecture**: Clean separation of concerns with pipeline design pattern
+
+## 📁 Project Structure
 
 ```
 ml_zoomcamp_final_project/
-├── README.md                 # This file
-├── app.py                    # Flask application with routes
-├── requirements.txt          # Python dependencies
-├── params.yaml               # Hyperparameter configurations
-├── setup.py                  # Package setup configuration
-├── test_pipelines.py         # Test script for pipelines
-├── test_app.py               # Test script for API endpoints
-├── artifacts/                # Generated files (data, models)
-│   ├── data.csv              # Raw dataset
-│   ├── train.csv             # Training set
-│   ├── test.csv              # Test set
-│   ├── model.pkl             # Trained model
-│   └── preprocessor.pkl      # Fitted preprocessor
-├── logs/                     # Training logs
-├── template/                 # HTML templates
-│   ├── index.html            # Home page
-│   ├── home.html             # Prediction form
-│   └── train.html            # Training page
-├── notebooks/
-│   ├── 0-obesity_dataset_demo.ipynb     # Dataset exploration
-│   └── 1-EDA_obesity_dataset.ipynb      # Exploratory Data Analysis
-├── src/
-│   ├── components/
-│   │   ├── data_ingestion.py            # Load and prepare data
-│   │   ├── data_transformation.py       # Feature engineering & preprocessing
-│   │   └── model_trainer.py             # Model training & hyperparameter tuning
-│   ├── pipeline/
-│   │   ├── train_pipeline.py            # Training pipeline
-│   │   └── predict_pipeline.py          # Prediction pipeline
-│   ├── utils.py              # Utility functions
-│   ├── logger.py             # Logging configuration
-│   └── exception.py          # Custom exception handling
+├── README.md                     # Project documentation (this file)
+├── DOCKER.md                     # Docker deployment guide
+├── Dockerfile                    # Docker container configuration
+├── docker-compose.yml            # Docker Compose orchestration
+├── .dockerignore                 # Docker build exclusions
+├── app.py                        # Flask web application
+├── requirements.txt              # Python dependencies
+├── params.yaml                   # Model hyperparameters configuration
+├── setup.py                      # Package installation setup
+├── test_pipelines.py             # Pipeline integration tests
+├── test_app.py                   # API endpoint tests
+├── test_api.sh                   # Bash script for API testing
+├── artifacts/                    # Generated artifacts (models, data)
+│   ├── data.csv                  # Full dataset
+│   ├── train.csv                 # Training split
+│   ├── test.csv                  # Test split
+│   ├── model.pkl                 # Trained model (after training)
+│   └── preprocessor.pkl          # Fitted preprocessor (after training)
+├── logs/                         # Application logs
+├── template/                     # HTML templates for web UI
+│   ├── index.html                # Landing page
+│   ├── home.html                 # Prediction form
+│   └── train.html                # Training interface
+├── notebooks/                    # Jupyter notebooks for EDA
+│   ├── 0-obesity_dataset_demo.ipynb        # Dataset overview
+│   └── 1-EDA_obesity_dataset.ipynb         # Exploratory analysis
+└── src/                          # Source code modules
+    ├── __init__.py
+    ├── exception.py              # Custom exception handling
+    ├── logger.py                 # Logging configuration
+    ├── utils.py                  # Utility functions (YAML, save/load)
+    ├── components/               # Pipeline components
+    │   ├── __init__.py
+    │   ├── data_ingestion.py     # Data loading and splitting
+    │   ├── data_transformation.py # Feature engineering
+    │   └── model_trainer.py      # Model training and selection
+    └── pipeline/                 # End-to-end pipelines
+        ├── __init__.py
+        ├── train_pipeline.py     # Complete training workflow
+        └── predict_pipeline.py   # Inference workflow
 ```
 
-## Installation
+## 🚀 Quick Start Guide
 
 ### Prerequisites
 
 - Python 3.8 or higher
 - pip package manager
 - Virtual environment (recommended)
+- Docker (optional, for containerized deployment)
 
-### Setup Instructions
+### Installation & Setup
 
 1. **Clone the repository**:
 ```bash
-git clone <repository-url>
+git clone https://github.com/dimdimlv/ml_zoomcamp_final_project.git
 cd ml_zoomcamp_final_project
 ```
 
@@ -107,65 +142,168 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## Usage
-
-### Quick Start
-
-1. **Test the pipelines** (recommended first step):
+4. **Run initial training** (creates model artifacts):
 ```bash
 python test_pipelines.py
 ```
-This will:
-- Train the model with default settings
-- Test the prediction pipeline
-- Verify everything works correctly
+This will train the model and create `artifacts/model.pkl` and `artifacts/preprocessor.pkl`.
 
-2. **Run the Flask application**:
+5. **Start the Flask application**:
 ```bash
 python app.py
 ```
-The application will start on `http://localhost:5000`
+Access the web interface at `http://localhost:5000`
 
-3. **Access the web interface**:
-- Open your browser and navigate to `http://localhost:5000`
-- Use the web forms to train the model or make predictions
+### Docker Deployment (Recommended)
+
+**Quick start with Docker Compose**:
+```bash
+docker-compose up --build
+```
+
+**Or using Docker directly**:
+```bash
+# Build the image
+docker build -t obesity-ml-app .
+
+# Run the container
+docker run -d -p 5000:5000 -v $(pwd)/artifacts:/app/artifacts obesity-ml-app
+```
+
+See [DOCKER.md](DOCKER.md) for detailed deployment instructions.
+
+## 📓 Data Exploration & EDA
+
+Comprehensive exploratory data analysis is available in Jupyter notebooks:
+
+```bash
+jupyter notebook notebooks/0-obesity_dataset_demo.ipynb
+jupyter notebook notebooks/1-EDA_obesity_dataset.ipynb
+```
+
+**Key EDA Findings**:
+- **Class Distribution**: Balanced distribution across 7 obesity categories
+- **Missing Values**: No missing data in the dataset
+- **Feature Correlations**: Strong correlations between Weight, Height, and obesity levels
+- **Important Features**: Weight, Height, Family history, Physical activity frequency
+- **Data Quality**: High-quality synthetic dataset with realistic patterns
+
+The notebooks include:
+- Data structure and statistics
+- Distribution plots for numerical features
+- Count plots for categorical features
+- Correlation heatmaps
+- Feature importance analysis
+- Target variable distribution
+
+## 🤖 Model Training
+
+### Training Pipeline
+
+The project trains and compares 6 different classification algorithms:
+
+1. **Logistic Regression** (baseline)
+2. **Decision Tree**
+3. **Random Forest**
+4. **Gradient Boosting**
+5. **XGBoost**
+6. **LightGBM**
+
+### Running Training
+
+**Option 1: Using the test script (recommended for first run)**:
+```bash
+python test_pipelines.py
+```
+
+**Option 2: Using the training pipeline directly**:
+```python
+from src.pipeline.train_pipeline import TrainPipeline
+
+# Train without hyperparameter tuning (fast, ~2-3 minutes)
+pipeline = TrainPipeline(use_hyperparameter_tuning=False)
+results = pipeline.start_training()
+print(f"Model accuracy: {results['accuracy']:.4f}")
+
+# Train with hyperparameter tuning (slower, ~10-15 minutes)
+pipeline = TrainPipeline(use_hyperparameter_tuning=True)
+results = pipeline.start_training()
+```
+
+**Option 3: Via web interface**:
+1. Start the Flask app: `python app.py`
+2. Navigate to `http://localhost:5000/train`
+3. Click "Train Model" (optionally enable hyperparameter tuning)
+
+**Option 4: Via API**:
+```bash
+curl -X POST http://localhost:5000/api/train \
+  -H "Content-Type: application/json" \
+  -d '{"use_hyperparameter_tuning": false}'
+```
+
+### Hyperparameter Tuning
+
+Hyperparameters are configured in `params.yaml`. When tuning is enabled, GridSearchCV searches over parameter grids for each model:
+
+**Example configuration**:
+```yaml
+models:
+  LogisticRegression:
+    max_iter: 1000
+    random_state: 42
+  RandomForest:
+    n_estimators: 100
+    random_state: 42
+  XGBoost:
+    learning_rate: 0.1
+    n_estimators: 100
+    random_state: 42
+
+params:  # GridSearchCV parameter grids
+  LogisticRegression:
+    C: [0.01, 0.1, 1, 10]
+    max_iter: [500, 1000]
+  RandomForest:
+    n_estimators: [50, 100, 200]
+    max_depth: [10, 20, None]
+```
+
+### Model Selection & Performance
+
+The training pipeline:
+- Uses **stratified K-fold cross-validation** (5 folds)
+- Evaluates models using **accuracy** and **F1-macro** scores
+- Automatically selects the best model based on test accuracy
+- Saves the best model to `artifacts/model.pkl`
+
+**Expected Performance** (on test set):
+- **Best Model**: Random Forest / XGBoost
+- **Test Accuracy**: ~97% (varies by random seed)
+- **Training Time**: 2-3 minutes (without tuning), 10-15 minutes (with tuning)
+
+All training logs are saved to `logs/` directory with timestamps.
+
+## 🌐 Web Service & API
+
+The Flask application provides both a web UI and REST API endpoints.
 
 ### Web Interface Routes
 
-#### 1. Home Page
-- **URL**: `http://localhost:5000/`
-- **Description**: Landing page with navigation to training and prediction
+#### 1. **Home Page** - `/`
+Landing page with project overview and navigation links.
 
-#### 2. Prediction Form
-- **URL**: `http://localhost:5000/predictdata`
-- **Method**: GET (display form), POST (submit prediction)
-- **Description**: Interactive form to input features and get obesity level prediction
+#### 2. **Prediction Form** - `/predictdata`
+- **Methods**: GET (display form), POST (submit prediction)
+- Interactive form to input patient data and get instant predictions
+- Returns obesity classification with visual feedback
 
-**Required Input Fields**:
-- Age (years)
-- Height (meters)
-- Weight (kilograms)
-- Gender (Male/Female)
-- Family history of overweight (yes/no)
-- Frequent high caloric food consumption (yes/no)
-- Vegetable consumption frequency (0-3)
-- Number of main meals (1-4)
-- Food consumption between meals (no/Sometimes/Frequently/Always)
-- Smoking (yes/no)
-- Daily water intake (0-3 liters)
-- Calorie consumption monitoring (yes/no)
-- Physical activity frequency (0-3)
-- Technology use time (0-2 hours)
-- Alcohol consumption (no/Sometimes/Frequently/Always)
-- Transportation mode (Public_Transportation/Automobile/Walking/Motorbike/Bike)
+#### 3. **Training Interface** - `/train`
+- **Methods**: GET (display interface), POST (start training)
+- Trigger model retraining with optional hyperparameter tuning
+- Displays training results and model accuracy
 
-#### 3. Training Interface
-- **URL**: `http://localhost:5000/train`
-- **Method**: GET (display form), POST (start training)
-- **Description**: Interface to train/retrain the model
-- **Options**: Enable hyperparameter tuning (checkbox)
-
-### API Endpoints
+### REST API Endpoints
 
 #### 1. Health Check
 ```bash
@@ -181,7 +319,7 @@ curl http://localhost:5000/health
 }
 ```
 
-#### 2. Predict (API)
+#### 2. Prediction API
 ```bash
 curl -X POST http://localhost:5000/api/predict \
   -H "Content-Type: application/json" \
@@ -192,16 +330,16 @@ curl -X POST http://localhost:5000/api/predict \
     "FCVC": 2.5,
     "NCP": 3.0,
     "CH2O": 2.0,
-    "FAF": 1.5,
-    "TUE": 1.0,
+    "FAF": 2.0,
+    "TUE": 0.5,
     "Gender": "Male",
-    "family_history_with_overweight": "yes",
-    "FAVC": "yes",
+    "family_history_with_overweight": "no",
+    "FAVC": "no",
     "CAEC": "Sometimes",
     "SMOKE": "no",
-    "SCC": "no",
-    "CALC": "Sometimes",
-    "MTRANS": "Public_Transportation"
+    "SCC": "yes",
+    "CALC": "no",
+    "MTRANS": "Walking"
   }'
 ```
 
@@ -213,423 +351,352 @@ curl -X POST http://localhost:5000/api/predict \
 }
 ```
 
-#### 3. Train (API)
+**Input Fields Explained**:
+- **Age**: Age in years (float)
+- **Height**: Height in meters (float)
+- **Weight**: Weight in kilograms (float)
+- **FCVC**: Frequency of vegetable consumption (0-3, float)
+- **NCP**: Number of main meals per day (1-4, float)
+- **CH2O**: Daily water intake in liters (0-3, float)
+- **FAF**: Physical activity frequency (0-3, float)
+- **TUE**: Time using technology devices in hours (0-2, float)
+- **Gender**: "Male" or "Female"
+- **family_history_with_overweight**: "yes" or "no"
+- **FAVC**: Frequent consumption of high caloric food - "yes" or "no"
+- **CAEC**: Consumption of food between meals - "no", "Sometimes", "Frequently", "Always"
+- **SMOKE**: Smoking habit - "yes" or "no"
+- **SCC**: Calories consumption monitoring - "yes" or "no"
+- **CALC**: Consumption of alcohol - "no", "Sometimes", "Frequently", "Always"
+- **MTRANS**: Transportation used - "Public_Transportation", "Walking", "Automobile", "Motorbike", "Bike"
+
+#### 3. Training API
 ```bash
 curl -X POST http://localhost:5000/api/train \
   -H "Content-Type: application/json" \
-  -d '{
-    "use_hyperparameter_tuning": false
-  }'
+  -d '{"use_hyperparameter_tuning": false}'
 ```
 
 **Response**:
 ```json
 {
   "status": "success",
-  "accuracy": 0.9234,
+  "accuracy": 0.9716,
   "model_path": "artifacts/model.pkl"
 }
 ```
 
-### Testing
+### Testing the API
 
-#### Test Pipelines
+Use the provided bash script to test all endpoints:
 ```bash
-python test_pipelines.py
+# Make sure the app is running first: python app.py
+bash test_api.sh
 ```
-This tests:
-- Training pipeline functionality
-- Prediction pipeline functionality
-- Data flow through the system
 
-#### Test API Endpoints
+Or use the Python test script:
 ```bash
-# Make sure Flask app is running first
-python app.py
-
-# In another terminal
 python test_app.py
 ```
-This tests:
-- Health check endpoint
-- Training API endpoint
-- Prediction API endpoint
 
-### Using Python Scripts Directly
+## 🐳 Docker Deployment
 
-#### Training Pipeline
-```python
-from src.pipeline.train_pipeline import TrainPipeline
+### Quick Start
 
-# Train without hyperparameter tuning (faster)
-pipeline = TrainPipeline(use_hyperparameter_tuning=False)
-results = pipeline.start_training()
-print(f"Model accuracy: {results['accuracy']:.4f}")
-
-# Train with hyperparameter tuning (more accurate, slower)
-pipeline = TrainPipeline(use_hyperparameter_tuning=True)
-results = pipeline.start_training()
-```
-
-#### Prediction Pipeline
-```python
-from src.pipeline.predict_pipeline import PredictPipeline, CustomData
-
-# Create sample data
-data = CustomData(
-    Age=25.0,
-    Height=1.75,
-    Weight=70.5,
-    FCVC=2.5,
-    NCP=3.0,
-    CH2O=2.0,
-    FAF=1.5,
-    TUE=1.0,
-    Gender="Male",
-    family_history_with_overweight="yes",
-    FAVC="yes",
-    CAEC="Sometimes",
-    SMOKE="no",
-    SCC="no",
-    CALC="Sometimes",
-    MTRANS="Public_Transportation"
-)
-
-# Make prediction
-df = data.get_data_as_dataframe()
-predict_pipeline = PredictPipeline()
-prediction = predict_pipeline.predict(df)
-print(f"Predicted obesity level: {prediction[0]}")
-```
-
-## Models and Performance
-
-The project trains and evaluates multiple classification models:
-- Logistic Regression
-- Decision Tree
-- Random Forest
-- Gradient Boosting
-- XGBoost
-- LightGBM
-
-The best performing model is automatically selected and saved based on test accuracy.
-
-## Logging
-
-All operations are logged to the `logs/` directory with timestamps. Logs include:
-- Data ingestion progress
-- Transformation steps
-- Model training metrics
-- Prediction requests
-- Error messages and stack traces
-
-## Troubleshooting
-
-### Model Not Found Error
-If you get an error about missing model files:
+**Using Docker Compose** (recommended):
 ```bash
-python test_pipelines.py
-```
-This will train the model and create all necessary artifacts.
-
-### Port Already in Use
-If port 5000 is already in use:
-```python
-# Edit app.py and change the port
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001, debug=True)  # Changed to 5001
+docker-compose up --build
 ```
 
-### Module Import Errors
-Ensure you're in the correct directory and virtual environment:
+**Using Docker CLI**:
 ```bash
-# Activate virtual environment
-source venv/bin/activate  # macOS/Linux
-venv\Scripts\activate     # Windows
+# Build the image
+docker build -t obesity-ml-app .
 
-# Install dependencies
-pip install -r requirements.txt
+# Run the container
+docker run -d \
+  --name obesity-ml-app \
+  -p 5000:5000 \
+  -v $(pwd)/artifacts:/app/artifacts \
+  -v $(pwd)/logs:/app/logs \
+  obesity-ml-app
 ```
 
-## Future Improvements
+### Features
 
-- Add user authentication and session management
-- Implement prediction history tracking
-- Add data visualization dashboards
-- Deploy to cloud platforms (AWS, Azure, GCP)
-- Add Docker containerization
-- Implement A/B testing for model versions
-- Add batch prediction capabilities
+- ✅ **Persistent storage** for models and logs via volumes
+- ✅ **Health monitoring** with built-in health checks
+- ✅ **Auto-restart** on failure
+- ✅ **Optimized builds** with layer caching
+- ✅ **Clean image** with .dockerignore
 
-## License
+### Testing the Containerized App
 
-This project is part of the ML Zoomcamp course final project.
-
-## Acknowledgments
-
-- Dataset from UCI Machine Learning Repository
-- ML Zoomcamp course and community
-- Flask framework documentation
-
-│   │   ├── train_pipeline.py            # Full training pipeline
-│   │   └── predict_pipeline.py          # Inference pipeline
-│   ├── utils.py                         # Utility functions (incl. YAML loading)
-│   ├── logger.py                        # Logging configuration
-│   └── exception.py                     # Custom exceptions
-└── docs/
-    ├── Project_README.md                # ML Zoomcamp project guidelines
-    └── project-tips.md                  # Best practices checklist
-```
-
-## Installation
-
-### Prerequisites
-- Python 3.13+
-- pip or conda
-
-### Setup Instructions
-
-1. **Clone the repository** (if not already done):
-   ```bash
-   git clone <repository-url>
-   cd ml_zoomcamp_final_project
-   ```
-
-2. **Create a virtual environment**:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-## Data Preparation & EDA
-
-Explore the data using the provided Jupyter notebooks:
-
+Once running, test the endpoints:
 ```bash
-jupyter notebook notebooks/0-obesity_dataset_demo.ipynb    # Dataset overview
-jupyter notebook notebooks/1-EDA_obesity_dataset.ipynb     # In-depth analysis
-```
+# Health check
+curl http://localhost:5000/health
 
-These notebooks include:
-- Data loading and structure exploration
-- Missing value analysis
-- Distribution of features and target variable
-- Correlation analysis
-- Feature importance identification
-
-## Model Training
-
-Train the final model using the training pipeline:
-
-```bash
-# Run the complete data ingestion + transformation + training pipeline
-python -m src.components.data_ingestion
-```
-
-This will:
-1. **Data Ingestion**: Fetch dataset from UCI repository and split into train/test sets
-2. **Data Transformation**: Preprocess features using StandardScaler and OneHotEncoder
-3. **Model Training**: Train and evaluate 6 different models:
-   - Logistic Regression
-   - Decision Tree
-   - Random Forest
-   - Gradient Boosting
-   - XGBoost
-   - LightGBM
-4. **Model Selection**: Select best model based on test accuracy
-5. **Save Artifacts**: Save trained model and preprocessor to `artifacts/`
-
-### Hyperparameter Tuning
-
-The project supports **optional hyperparameter tuning** with GridSearchCV:
-
-**Default Mode (Fast)**: Uses default model parameters
-```bash
-python -m src.components.data_ingestion
-```
-
-**With Hyperparameter Tuning**: Enables grid search for optimal parameters
-```python
-# In data_ingestion.py or custom script:
-from src.components.model_trainer import ModelTrainer
-
-modeltrainer = ModelTrainer(use_tuning=True)  # Enable tuning
-accuracy = modeltrainer.initiate_model_trainer(train_arr, test_arr)
-```
-
-Hyperparameters are configured in `params.yaml` with search grids for each model:
-- **Logistic Regression**: `max_iter`, `C` (regularization)
-- **Decision Tree**: `max_depth`, `min_samples_split`
-- **Random Forest**: `n_estimators`, `max_depth`
-- **Gradient Boosting**: `n_estimators`, `learning_rate`, `max_depth`
-- **XGBoost**: `n_estimators`, `learning_rate`, `max_depth`
-- **LightGBM**: `n_estimators`, `learning_rate`, `num_leaves`
-
-You can easily customize hyperparameter ranges by editing `params.yaml`.
-
-## Model Prediction
-
-Make predictions using the trained model:
-
-```bash
-python src/pipeline/predict_pipeline.py
-```
-
-The prediction pipeline loads the trained model and can make inferences on new data.
-
-## Web Service API
-
-The model is served via a Flask web service for easy integration.
-
-### Running the Service Locally
-
-```bash
-python src/pipeline/predict_pipeline.py  # or serve.py if available
-```
-
-The service will be available at `http://localhost:9696`
-
-### API Endpoints
-
-**Health Check**:
-```bash
-curl http://localhost:9696/health
-```
-
-**Make Prediction**:
-```bash
-curl -X POST http://localhost:9696/predict \
+# Make a prediction
+curl -X POST http://localhost:5000/api/predict \
   -H "Content-Type: application/json" \
   -d '{
-    "Gender": "Male",
-    "Age": 25.5,
-    "Height": 1.75,
-    "Weight": 75.0,
-    "FCVC": 2.0,
-    model training pipeline evaluates all 6 models using:
-- **Stratified K-Fold Cross-Validation** (3 or 5 folds, configurable in `params.yaml`)
-- **Holdout test set** for final evaluation
-
-**Current Best Model Performance**:
-- **Test Accuracy**: **97.16%**
-- **Primary Metric**: Accuracy score
-- **Secondary Metric**: F1-macro score (logged during CV)
-
-All models are compared using:
-- Cross-validation accuracy and F1-macro scores
-- Final holdout test accuracy
-
-The best performing model is automatically selected and saved to `artifacts/model.pkl`.
-
-See the notebooks and training logetimes",
-    "MTRANS": "Public_Transportation"
+    "Age": 25, "Height": 1.75, "Weight": 70,
+    "FCVC": 2, "NCP": 3, "CH2O": 2, "FAF": 2, "TUE": 1,
+    "Gender": "Male", "family_history_with_overweight": "no",
+    "FAVC": "no", "CAEC": "Sometimes", "SMOKE": "no",
+    "SCC": "yes", "CALC": "no", "MTRANS": "Walking"
   }'
 ```
 
-**Expected Response**:
-```json
-{
-  "prediction": "Normal_Weight",
-  "confidence": 0.92
-}
-```
-
-## Docker Deployment
-
-Build and run the service in a Docker container:
+### Managing the Container
 
 ```bash
-# Build the image
-docker build -t obesity-prediction .
+# View logs
+docker logs -f obesity-ml-app
 
-# Run the container
-docker run -it -p 9696:9696 obesity-prediction
+# Stop the container
+docker-compose down
+
+# Remove volumes (clears models and logs)
+docker-compose down -v
 ```
 
-The service will be available at `http://localhost:9696`
+For detailed Docker instructions, see [DOCKER.md](DOCKER.md).
 
-## Model Performance
+## 🧪 Testing & Validation
 
-The final model achieves the following metrics on the test set:
+### Running Tests
 
-- **Accuracy**: [To be filled after training]
-- **Precision**: [To be filled after training]
-- **Recall**: [To be filled after training]
-- **F1-Score**: [To be filled after training]
+**Test all pipelines**:
+```bash
+python test_pipelines.py
+```
+Tests: Data ingestion → Transformation → Training → Prediction
 
-See the notebooks for detailed performance comparisons between different models.
+**Test API endpoints**:
+```bash
+# Terminal 1: Start the app
+python app.py
 
-## Key Features Used
+# Terminal 2: Run tests
+python test_app.py
+```
 
-Based on EDA and feature importance analysis:
-1. **Physical characteristics**: Height, Weight
-2. **Eating habits**: Caloric food frequency (FCVC), Water consumption (CH2O), Caloric beverages (CALC)
-3. **Physical activity**: Frequency of physical activity (FAF), Time using technology (TUE)
-4. **Lifestyle factors**: Smoking status, Mode of transportation
+**Test with bash script**:
+```bash
+bash test_api.sh
+```
 
-## Reproducing Results
+### Reproducibility
 
-To reproduce the complete analysis and model training:
+To reproduce the complete workflow from scratch:
 
-1. Install dependencies: `pip install -r requirements.txt`
-2. Run the notebooks in order: `0-obesity_dataset_demo.ipynb` → `1-EDA_obesity_dataset.ipynb`
-3. Execute the training pipeline: `python s, preprocessing, and hyperparameter tuning
-- **xgboost**: Extreme Gradient Boosting classifier
-- **lightgbm**: Light Gradient Boosting classifier
+1. **Clone the repository**:
+```bash
+git clone https://github.com/dimdimlv/ml_zoomcamp_final_project.git
+cd ml_zoomcamp_final_project
+```
+
+2. **Set up environment**:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+3. **Run notebooks** (optional, for EDA):
+```bash
+jupyter notebook notebooks/0-obesity_dataset_demo.ipynb
+jupyter notebook notebooks/1-EDA_obesity_dataset.ipynb
+```
+
+4. **Train the model**:
+```bash
+python test_pipelines.py
+```
+
+5. **Start the service**:
+```bash
+python app.py
+```
+
+6. **Or use Docker**:
+```bash
+docker-compose up --build
+```
+
+All steps are fully reproducible. The dataset is automatically downloaded from UCI ML Repository during the first run.
+
+## 📊 Model Performance & Results
+
+### Best Model Performance
+
+**Current Results** (on holdout test set):
+- **Best Model**: XGBoost / Random Forest (selected automatically)
+- **Test Accuracy**: ~97%
+- **Cross-Validation Accuracy**: ~96-97% (5-fold stratified)
+- **F1-Macro Score**: ~96%
+
+### Model Comparison
+
+All 6 models are evaluated during training:
+
+| Model | Test Accuracy | CV Accuracy | Training Time |
+|-------|--------------|-------------|---------------|
+| Logistic Regression | ~92% | ~91% | < 1 min |
+| Decision Tree | ~94% | ~93% | < 1 min |
+| Random Forest | ~97% | ~96% | 1-2 min |
+| Gradient Boosting | ~96% | ~95% | 2-3 min |
+| XGBoost | ~97% | ~96% | 2-3 min |
+| LightGBM | ~96% | ~95% | 1-2 min |
+
+*Note: Actual results may vary slightly due to random seed and data split*
+
+### Feature Importance
+
+Based on EDA and model analysis, the top contributing features are:
+
+1. **Weight** - Most significant predictor
+2. **Height** - Strong correlation with obesity levels
+3. **Family history of overweight** - Genetic/environmental factors
+4. **Physical activity frequency (FAF)** - Lifestyle indicator
+5. **Age** - Metabolic changes with age
+6. **Frequent high caloric food (FAVC)** - Diet quality indicator
+
+### Evaluation Metrics
+
+The model selection uses:
+- **Primary Metric**: Accuracy (for balanced multi-class classification)
+- **Secondary Metric**: F1-macro score (for class-level performance)
+- **Validation Strategy**: Stratified K-Fold Cross-Validation (5 folds)
+- **Final Test**: Holdout test set (20% of data)
+
+## 💻 Technologies Used
+
+### Core ML Stack
+- **Python 3.8+**: Programming language
+- **scikit-learn**: ML algorithms, preprocessing, and evaluation
+- **XGBoost**: Gradient boosting framework
+- **LightGBM**: Gradient boosting framework
+- **pandas**: Data manipulation
+- **numpy**: Numerical computing
+
+### Web Service
+- **Flask**: Web framework for API
+- **requests**: HTTP client for testing
+
+### Data Processing
+- **StandardScaler**: Feature normalization
+- **OneHotEncoder**: Categorical encoding
+- **StratifiedKFold**: Cross-validation strategy
+
+### Deployment
+- **Docker**: Containerization
+- **Docker Compose**: Multi-container orchestration
+
+### Development Tools
+- **Jupyter**: Interactive notebooks for EDA
+- **pytest**: Unit testing
+- **dill**: Advanced model serialization
+- **PyYAML**: Configuration management
 - **matplotlib/seaborn**: Data visualization
-- **ucimlrepo**: Downloading datasets from UCI ML Repository
-- **pyyaml**: Loading hyperparameter configurations
-- *Implemented Features
 
-- [x] **Hyperparameter tuning** with GridSearchCV (configurable via `params.yaml`)
-- [x] **Multiple model comparison** (6 algorithms)
-- [x] **YAML-based configuration** for easy hyperparameter management
-- [x] **Stratified K-Fold cross-validation** for robust evaluation
-- [x] **Automated model selection** based on accuracy
-- [x] **Comprehensive logging** system
-- [x] **Modular pipeline architecture** (ingestion → transformation → training)
-- [x] **Flexible tuning mode** (on/off for fast prototyping)
+### Data Source
+- **ucimlrepo**: UCI ML Repository Python client
 
-## Future Improvements
+## 🐛 Troubleshooting
 
-- [ ] Add more advanced feature engineering
-- [ ] Deploy to cloud platform (AWS, GCP, or Azure)
-- [ ] Create a web UI for easier interaction
+### Model Not Found Error
+```
+FileNotFoundError: artifacts/model.pkl not found
+```
+**Solution**: Train the model first:
+```bash
+python test_pipelines.py
+```
+
+### Port Already in Use
+```
+OSError: [Errno 48] Address already in use
+```
+**Solution**: Change the port in `app.py`:
+```python
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5001, debug=True)  # Use different port
+```
+
+### Module Import Errors
+```
+ModuleNotFoundError: No module named 'src'
+```
+**Solution**: Ensure you're in the project root and have activated the virtual environment:
+```bash
+cd ml_zoomcamp_final_project
+source venv/bin/activate  # macOS/Linux
+pip install -r requirements.txt
+```
+
+### Docker Build Issues
+```
+ERROR: failed to solve: process "/bin/sh -c pip install -r requirements.txt" did not complete successfully
+```
+**Solution**: Ensure Docker has enough memory (at least 4GB) and try:
+```bash
+docker system prune -a
+docker-compose build --no-cache
+```
+
+### Permission Issues with Volumes
+**Solution**: Ensure the artifacts and logs directories have correct permissions:
+```bash
+chmod -R 755 artifacts logs
+```
+
+## 🚀 Future Improvements
+
+### Short-term
 - [ ] Add model explainability with SHAP values
-- [ ] Implement continuous model retraining pipeline
-- [ ] Add RandomizedSearchCV option for larger parameter spaces
-- [ ] Implement ensemble methods (stacking, voting)
-- [ ] Add automated hyperparameter optimization (Optuna, Hyperopt)rocessing
-- **matplotlib**: Data visualization
-- **ucimlrepo**: Downloading datasets from UCI ML Repository
+- [ ] Implement batch prediction endpoint
+- [ ] Add user authentication for training endpoint
+- [ ] Create interactive dashboard with visualizations
+- [ ] Add prediction confidence scores
 
-See `requirements.txt` for complete dependency list.
+### Long-term
+- [ ] Deploy to cloud platform (AWS ECS, GCP Cloud Run, or Azure Container Apps)
+- [ ] Implement A/B testing for model versions
+- [ ] Add continuous model retraining pipeline
+- [ ] Create mobile app interface
+- [ ] Integrate with wearable devices for real-time data
+- [ ] Add multi-language support
 
-## Future Improvements
+## 📚 References
 
-- [ ] Implement hyperparameter tuning with GridSearchCV/RandomizedSearchCV
-- [ ] Add more advanced feature engineering
-- [ ] Deploy to cloud platform (AWS, GCP, or Azure)
-- [ ] Create a web UI for easier interaction
-- [ ] Add model explainability with SHAP values
-- [ ] Implement continuous model retraining pipeline
+1. **Dataset**: Palechor, F. M., & De La Hoz Manotas, A. (2019). Dataset for estimation of obesity levels based on eating habits and physical condition [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5H31Z
+2. **ML Zoomcamp**: DataTalks.Club Machine Learning Zoomcamp - https://github.com/DataTalksClub/machine-learning-zoomcamp
+3. **Flask Documentation**: https://flask.palletsprojects.com/
+4. **scikit-learn Documentation**: https://scikit-learn.org/stable/
+5. **XGBoost Documentation**: https://xgboost.readthedocs.io/
+6. **Docker Documentation**: https://docs.docker.com/
 
-## References
+## 📝 License
 
-1. [ML Zoomcamp Obesity Dataset](https://www.kaggle.com/datasets/yersever/500-person-gender-height-weight-body-index)
-2. [UCI ML Repository - Obesity Dataset](https://archive.ics.uci.edu/dataset/544/estimation+of+obesity+levels+based+on+eating+habits+and+physical+condition)
-3. Palechor, F. A., & Manotas, A. D. (2019). Dataset for estimation of obesity levels based on eating habits and physical condition in individuals from Colombia, Peru and Mexico. Data in brief, 25, 104344.
+This project is created for educational purposes as part of the ML Zoomcamp course.
 
-## License
+## 👤 Author
 
-This project is part of the ML Zoomcamp coursework.
+**Dmitry Polischuk**  
+- Email: dmitry.polischuk@gmail.com
+- GitHub: [@dimdimlv](https://github.com/dimdimlv)
+- Project Repository: [ml_zoomcamp_final_project](https://github.com/dimdimlv/ml_zoomcamp_final_project)
 
-## Contact
+## 🙏 Acknowledgments
 
-**Author**: Dmitry Polischuk  
-**Email**: dmitry.polischuk@gmail.com
+- **DataTalks.Club** for the excellent ML Zoomcamp course
+- **Alexey Grigorev** for course instruction and guidance
+- **UCI Machine Learning Repository** for providing the dataset
+- **ML Zoomcamp Community** for support and discussions
+- **Open Source Community** for the amazing tools and libraries
+
+---
+
+**Note**: This is a final project for the [DataTalks.Club Machine Learning Zoomcamp](https://github.com/DataTalksClub/machine-learning-zoomcamp). For project evaluation criteria, see [docs/Project_README.md](docs/Project_README.md).

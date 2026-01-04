@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  ml-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: obesity-ml-app
+    ports:
+      - "5000:5000"
+    volumes:
+      # Mount artifacts directory to persist models
+      - ./artifacts:/app/artifacts
+      # Mount logs directory to persist logs
+      - ./logs:/app/logs
+    environment:
+      - FLASK_APP=app.py
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
